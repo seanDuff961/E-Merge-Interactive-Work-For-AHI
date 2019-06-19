@@ -1,0 +1,280 @@
+﻿<!--<%@ Page Language="C#" Debug="true" MasterPageFile="fpcourse/Site.master" EnableEventValidation="false" AutoEventWireup="true" CodeFile="CEcert.aspx.cs" Inherits="certinfo" Title="Upright - Certificate of Completion" %>-->
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<LINK rel="stylesheet" type"text/css" href="print.css" media="print">
+<LINK rel="stylesheet" type"text/css" href="display.css" media="screen"> 
+<LINK rel="stylesheet" type"text/css" href="/fpcourse/login.css" media="screen">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+</asp:Content>
+
+<asp:Content ID="cmain" ContentPlaceHolderID="MainContent" Runat="Server">
+<div id="noprint" style="margin:0"><asp:Label ID="theMessage" runat="server" Visible="false"/>
+</div>
+<div id="outer" style="width:900px; height:600px;  margin-left:0px" >
+<div id="certbdr" style="width:894px; height:594px;">
+<div id="ceCert">
+
+<div class="container-div">
+  <img src="images/logo.png" class="logo" alt="Hendrich II Logo" />
+
+  <hr class="certificate-hr"/>
+</div>
+
+ <p class="center AHI-of-Indiana">AHI of Indiana Inc.</p>
+ <p class="address">
+    P.O. Box 50346<br>
+    St. Louis, MO 63105 <br> 
+  </p>  
+      <div class="center certifies-that">certifies that</div> 
+
+<!--space for entering name + credentials-->
+<br>
+<br>
+<br>
+
+<hr class="participants-and-credentials-hr">
+
+<div class='center' >
+<div id="uName" class='center' style=" font-family:Arial, Helvetica, sans-serif; font-size:26px; font-weight:bold"><asp:Literal  ID="certInfo" runat="server" /></div>
+<div class="center has-received">has received <span class="percentage">0.75</span> contact hours for successfully completing</div>
+<asp:Label id="certType" runat="server" CssClass="cType" Visible="false"  />
+<asp:Label ID="courseName" runat="server" CssClass="cName" />
+</div>
+
+<br>
+<br>
+<hr class="course-name-hr">
+
+<asp:Literal  ID="cDate" runat="server" Visible="false" />
+
+<div class="outer-container-for-little-container">
+<div class="little-container">
+
+  <div class="left-side">
+  <p class="left-content"><span class="date">Date: </span> <span class="enduring">Enduring: ongoing web-based</span></p>
+  <p class="left-content"><span class="location">Location: </span> <span class="website">www.uprightfallprevention.net</span>
+  <p class="left-content"><span class="MW">MW MSD Approval #: ________________</span></p>
+  <!--MO320-1198-->
+  </div><!--end left side-->
+
+  <!-- <div id="cText" class="center"> -->
+
+  <div class="right-side">
+    <asp:Panel id="cecredit" runat="server" Visible="true"></asp:Panel>
+    <div class="align-center">
+    <p class="right-content"><span class="ann-hendrich">
+      <img src="images/signature.png" class="signature" alt="Ann Hendrich Signature" />
+
+      _____________________________________________<br>
+      Ann Hendrich, RN, PhD, F.A.A.N.</span>
+    <br/>
+    <p class="right-content"><span class="nurse-planner">Nurse Planner</span></p>
+    </div>
+  </div><!--end right side-->
+
+</div>
+
+</div><!--end little container-->
+</div><!--end outside container-->
+
+<div class="center needs-margin-top">
+<p class="this-continuing">This continuing nursing education activity was approved by the Midwest Multistate Division, an accredited approver by the American Nurses Credentialing Center’s Commission on Accreditation.</p>
+</div> 
+
+<p class="predict">Predict. Prevent. Preserve What Matters.</p>
+<hr class="certificate-hr"/>
+
+</div><!--end ceCert Container-->       
+<asp:Label ID="myDebug" runat="server" />
+
+</div><!--end certbdr conatiner-->
+</div><!--end outer container-->
+
+<br>
+<br>
+<br>
+<div class="center" id="noprint">
+  <p><A HREF="javascript:window.print()">Click here to Print This Page</A><br />
+    Email this Certificate to: 
+    <asp:TextBox ID="toaddress" runat="server" />  
+  &nbsp;&nbsp;
+  <asp:LinkButton ID="sendcert" runat="server" OnClick="emCert" Text="SEND" />&nbsp;&nbsp;
+  <asp:RequiredFieldValidator ID="toAddressReq" runat="server" ControlToValidate="toaddress" ErrorMessage="Email address is required!" />
+ <asp:RegularExpressionValidator ID="toAddressVal" runat="server"
+ControlToValidate="toaddress"
+ValidationExpression="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,3})$" ErrorMessage="A valid Email address is required!"></asp:RegularExpressionValidator> 
+  </p>
+  <p>Click <a href="fpcourse/choice.aspx">HERE</a> to continue.</p>
+</div>
+</asp:Content>
+
+<style>
+
+  .logo {
+    width: 20%;
+  }
+
+  #certbdr {
+    padding: 10px!important;
+    border: 2px solid black;
+    margin-top: 15px;
+  }
+
+  .container-div {
+    text-align: center; 
+    margin-bottom:10px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  #outer {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%!important;
+  }
+
+  .certificate-hr {
+    background-color: #dcb382;
+    width: 95%;
+    height: 1px;
+    border: none;
+  }
+
+  .participants-and-credentials-hr {
+    background-color: #0c0c0c;
+    width: 95%;
+    height: 1.5px;
+    border: none;
+  }
+
+  .course-name-hr {
+    background-color: #0c0c0c;
+    width: 75%;
+    height: 1px;
+    border: none;
+  }
+
+  .outer {
+    display: flex;
+  }
+
+  .align-center {
+    margin-top: 9%;
+    text-align: center;
+  }
+
+  .needs-margin-top {
+    margin-top: 25px;
+  }
+
+  .predict {
+    color: #ca6235;
+    font-weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+/*LITTLE-CONTAINER*/
+
+  .outer-container-for-little-container {
+    text-align: center;
+    display: inline;
+  }
+
+  .little-container {
+    display: flex;
+  }
+  
+  .left-side {
+    flex: 50%;
+    border-right: 1px solid #49778b;
+  }
+
+  .left-content {
+    font-family: "Source Sans Pro", sans-serif;
+    text-align: left;
+  }
+
+  .right-side {
+    flex: 50%;
+  }
+
+  .right-content {
+    font-family: "Source Sans Pro", sans-serif;
+    text-align:left;
+    margin: 0 0 0 30px;
+  }
+
+  .enduring {
+    color: #49778c;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .website {
+    color: #49778c!important;
+    font-weight: bold!important;
+    text-decoration: underline!important;
+  }
+
+  .date, .location, .MW, .ann-hendrich, .nurse-planner {
+    color: #455469;
+  }
+
+  .ann-hendrich {
+    font-weight: bold;
+  }
+
+  .signature {
+    width: 75%;
+  }
+
+  .this-continuing {
+    font-family: "Source Sans Pro", sans-serif;
+    text-align: center; 
+    display: inline;
+    color: #455469;
+  }
+
+/*FONT STYLES*/
+
+  .AHI-of-Indiana {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: bold;
+    color: #a5a5a5;
+    margin-bottom: 0px;
+    font-size: 12px;
+  }
+  .address {
+    font-family: "Source Sans Pro", sans-serif;
+    color: #a5a5a5;
+    text-align: center;
+    margin-top: 0px;
+    font-size: 12px;
+  }
+  .certifies-that {
+    font-family: "Source Sans Pro", sans-serif;
+    color: #455469;
+    text-align: center;
+    font-size: 20px;
+  }
+  .has-received {
+    font-family: "Source Sans Pro", sans-serif;
+    color: #455469;
+  }
+  .percentage {
+    color: #ca6235;
+    font-weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+    text-decoration: underline;
+  }
+
+</style>

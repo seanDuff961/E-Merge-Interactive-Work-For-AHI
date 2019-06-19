@@ -1,0 +1,87 @@
+
+<h2>Razor Page Info Module Example</h2>
+<div>The current page is:</div>
+<ul>
+
+	<li>Name: @Dnn.Tab.TabName</li>
+	<li>Id: @Dnn.Tab.TabID</li>
+    <li>Parent Id:<span id="pid">@Dnn.Tab.ParentId</span></li>
+	<li>Tab Order: @Dnn.Tab.TabOrder</li>
+</ul>
+
+<div>
+    <a href="#" class="btn d-none" id="finish-button"></a>
+</div>
+
+MyIndex <span id="myIndex"></span>
+<script>
+
+    function setMenu() {
+        var menuList = $.cookie("MissedQuestions");
+       
+        $("#compMenu").text(menuList);
+    }
+
+</script>
+<script>
+
+    $(document).ready(function () {
+        
+        //set current tab if greater than exsiting
+        var slPos = $.cookie('tabValue');
+
+        @{
+           <text>
+           curTab =  @Dnn.Tab.ParentId;
+           </text>
+        }
+
+        if(slPos < curTab){$.cookie('tabValue', curTab);}
+
+        var list = $("#navList").text();
+        var navList = list.trim().split(',');
+        var pid = $("#pid").text();
+        var indx = updateLastViewedSlide(pid, navList);
+        
+        // var indx = navList.indexOf(pid);
+        var slPos = $.cookie('tabValue');
+        var cindx = navList.indexOf(slPos);
+        if (cindx > indx) {
+            indx = cindx;
+        }
+
+        for (var i = indx + 1; i < navList.length; i++) {
+            $('.sid' + navList[i])
+                .addClass('noLnk')
+                .contents().unwrap();
+        }
+
+    });
+
+    //allow user to navigate through links in menu
+    function updateLastViewedSlide(slideId, slides) {
+        var lastSlide = $.cookie('last-slide');
+        var currentIndex = slides.indexOf(slideId);
+        var lastIndex = slides.indexOf(lastSlide);
+
+        // If last slide is before current slide
+        if(!lastSlide || lastIndex < currentIndex) {
+            lastIndex = currentIndex;
+
+            // Updates cookie
+            $.cookie('last-slide', slideId);
+        }
+
+        return lastIndex;
+    }
+
+</script>
+
+<div id="compMenu"></div>
+
+
+
+
+
+
+
